@@ -1,8 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+const flowbite = require("flowbite-react/tailwind");
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    flowbite.content(),
+
   ],
   theme: {
     colors: {
@@ -46,9 +50,12 @@ export default {
 
   fontFamily: {
     poppins: ["Poppins", "sans-serif"],
+    poppinsBold: ["PoppinsBold", "sans-serif"],
   },
 
   extend: {},
   },
-  plugins: [],
+  plugins: [
+    flowbite.plugin(),
+  ],
 }
