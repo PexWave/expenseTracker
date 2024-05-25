@@ -1,7 +1,7 @@
 import React from 'react'
 
 //components
-import Layout from '../../../components/layout/Layout'
+import Layout from '../../../components/layouts/Layout'
 
 export default function Signup() {
   return (

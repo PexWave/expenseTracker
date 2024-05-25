@@ -9,7 +9,7 @@ import {
     onboardingTextBody, onboardingTextBody2, onboardingTextBody3
 } from '../../common/texts';
 
-import Layout from '../../components/layout/Layout';
+import Layout from '../../components/layouts/Layout';
 
 export default function Onboarding() {
   return (
