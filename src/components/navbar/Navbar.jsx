@@ -13,8 +13,9 @@ import { FaUser } from "react-icons/fa";
 //components
 import Notification from '../notification/Notification';
 import ProfileImg from '../displaypicture/ProfileImg';
+import CustomModal from '../modal/Modal';
 
-function TabButton({ id, label, icon, onClick, path, isActive }) {
+function TabButton({ id, label, icon, onClick, isActive }) {
   const buttonClasses = `
     ${isActive ? 'bg-violet-80' : ''}
     px-4 py-2 rounded-md
@@ -22,16 +23,16 @@ function TabButton({ id, label, icon, onClick, path, isActive }) {
   `;
 
   return (
-    <Link
+    <button
       id={id}
       className={buttonClasses}
-      to={path}
       onClick={onClick}
+      
     >
         {icon}
       {label}
       
-    </Link>
+    </button>
   );
 }
 
@@ -40,10 +41,18 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const [activeTabId, setActiveTabId] = useState(null); // Initially track active tab by ID
+  const [openModal, setOpenModal] = useState(false);
 
-  const handleTabClick = (id,path) => {
-    setActiveTabId(id);
-    navigate(path);
+  const handleTabClick = (id, path) => {
+
+    if(id !== 'tab3'){
+      setActiveTabId(id);
+      navigate(path);
+    }
+    else{
+      setOpenModal(true);
+    }
+   
 
     };
 
@@ -51,7 +60,7 @@ export default function Navbar() {
   const tabs = [
     { id: 'tab1', label: 'Home', path: '/', icon: <IoHomeSharp className='m-auto' size={'2rem'}  />  },
     { id: 'tab2', label: 'Transaction', path: 'transaction', icon: <BiTransferAlt className='m-auto' size={'2rem'} /> },
-    { id: 'tab3', label: '', path: '', icon: <IoIosAddCircle className='m-auto' size={'4rem'} />},
+    { id: 'tab3', label: '', icon: <IoIosAddCircle className='m-auto' size={'4rem'} />},
     { id: 'tab4', label: 'Budget', path: 'budget', icon: <IoMdPie className='m-auto' size={'2rem'} />  },
     { id: 'tab5', label: 'Profile', path: 'profile', icon: <FaUser className='m-auto' size={'2rem'} />
   },
@@ -59,7 +68,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className='flex flex-row justify-around items-center'>
+    <>    <nav className='flex flex-row justify-around items-center'>
         <ProfileImg/>
 
       {tabs.map((tab) => (
@@ -76,6 +85,24 @@ export default function Navbar() {
         <Notification/>
         
     </nav>
+
+    <CustomModal
+    size={"md"}
+    content={
+      <div className="text-center">
+      <div className='flex flex-col gap-2'>
+        <span className='bg-green-60 hover:bg-green-80 rounded-lg p-7'>
+          Income
+        </span>
+        <span className='bg-red-60 hover:bg-red-80 rounded-lg p-7'>
+          Expense
+        </span>
+      </div>
+    </div>
+    }
+    openModal={openModal} setOpenModal={setOpenModal}/>
+    </>
+
 
 )
 }

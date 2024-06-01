@@ -16,7 +16,7 @@ export default function AccountDetail({icon, type, amount, color}) {
                {type}
             </span>
             <span className='text-2xl'>
-              {amount}
+            ₱{amount}
             </span>
         </div>
 

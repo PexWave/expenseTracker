@@ -35,7 +35,7 @@ const router = createBrowserRouter([
         // Single route in lazy file
         lazy: () => import("./pages/transaction/Transactions"),
         element: <Transactions/>
-      },
+      },  
     ]
   },
 

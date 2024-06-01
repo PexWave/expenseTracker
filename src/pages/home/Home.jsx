@@ -3,6 +3,8 @@ import { FaCamera } from "react-icons/fa";
 import {
   Outlet, 
 } from "react-router-dom";
+import { Label, Select } from "flowbite-react";
+
 //components
 import { Dropdown } from "flowbite-react";
 import Layout from '../../components/layouts/Layout';
@@ -24,24 +26,41 @@ export default function Home() {
       {/* MONTH SELECTION */}
       <div className='flex flex-col items-center gap-2 my-2'>
       <div>
-            <Dropdown color={""} className='border-2 text-3xl' label="October" dismissOnClick={false}>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
-              <Dropdown.Item>Settings</Dropdown.Item>
-              <Dropdown.Item>Earnings</Dropdown.Item>
-              <Dropdown.Item>Sign out</Dropdown.Item>
-            </Dropdown>
-
+      <div className="max-w-md">
+        <div className="mb-2 block text-3xl">
+          <Label htmlFor="countries" value="Select Month" />
+        </div>
+        <Select id="month" required>
+          <option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>
+        </Select>
+    </div>
         </div>
 
         <span className='text-3xl'>
           Account Balance
         </span>
+
+        <span className='text-3xl'>
+        ₱00.0
+        </span>
+
       </div>
 
       {/* ACCOUNT DETAILS */}
         <div className='flex flex-row gap-6 justify-center'>
             <AccountDetail type={"Income"} color={'bg-green-80'} icon={<FaCamera className='text-2xl' />} amount={"5000"} />
-            <AccountDetail type={"Income"} color={'bg-red-80'} icon={<FaCamera className='text-2xl' />} amount={"5000"} />
+            <AccountDetail type={"Expenses"} color={'bg-red-80'} icon={<FaCamera className='text-2xl' />} amount={"5000"} />
         </div>
     
     
