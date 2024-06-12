@@ -65,7 +65,7 @@ export default function Home() {
     
     
       {/* CHART */}
-      <div className='m-auto w-1/2 h-min my-10'>
+      <div className='m-auto w-full h-full md:w-1/2 my-10'>
         <ExpensesChart/>
       </div>
 

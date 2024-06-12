@@ -24,6 +24,7 @@ ChartJS.register(
 
 export const options = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: 'top',
@@ -49,6 +50,9 @@ export const data = {
   ],
 };
 export default function ExpenseChart() {
-    return <Line options={options} data={data} />;
+    return <Line
+
+    className='w-full h-full'
+    options={options} data={data} />;
 
 }
