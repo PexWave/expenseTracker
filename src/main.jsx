@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   RouterProvider,
+  createRoutesFromElements,
+  Route
 } from "react-router-dom";
 
 
@@ -18,44 +20,23 @@ import ErrorPage from './error-page';
 
 //css
 import './index.css';
-import Transactions from './pages/transaction/Transactions';
+import Transactions, { TransactionLayout } from './pages/transaction/Transactions';
+import DetailTransaction from './pages/transaction/detailtransactions/DetailTransaction';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomeLayout />,
-    errorElement: <ErrorPage/>,
-    children: [
-      {
-        index: true,
-        element: <Home />,
-      },
-      {
-        path: "transaction",
-        // Single route in lazy file
-        lazy: () => import("./pages/transaction/Transactions"),
-        element: <Transactions/>
-      },  
-    ]
-  },
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<HomeLayout/>}>
+      <Route index element={<Home/>} />
 
-  {
-    path: "/auth/login",
-    element: <Signin />,
-    errorElement: <ErrorPage/>,
-    children: [
+      <Route path='transaction' element={<TransactionLayout/>}>
+        <Route index element={<Transactions/>} />
+        <Route path='detailtransaction' element={<DetailTransaction/>} />
 
-    ]
-  },
-  {
-    path: "/auth/signup",
-    element: <Signup />,
-    errorElement: <ErrorPage/>,
-    children: [
+      </Route>
 
-    ]
-  },
-]);
+    </Route>
+  )
+);
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(

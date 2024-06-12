@@ -1,0 +1,36 @@
+button {
+    background-color: lightgray;
+    border: 0;
+    border-radius: 25px; /* Reduced from 50px to maintain the proportion */
+    cursor: pointer;
+    height: 30px; /* Reduced from 100px to make it smaller */
+    position: relative;
+    width: 60px; /* Reduced from 200px to make it smaller */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  button:hover { background-color: lightgray; }
+  button:focus,
+  button:active { outline: none; }
+  button::-moz-focus-inner { border: 0; }
+  
+  .pin {
+    background-color: white;
+    border-radius: 25px; /* Reduced to maintain the proportion */
+    height: 22px; /* Reduced from 94px to maintain the proportion */
+    left: 3px; /* Adjusted to fit the smaller button */
+    position: absolute;
+    top: 3px; /* Adjusted to fit the smaller button */
+    width: 22px; /* Reduced from 98px to maintain the proportion */
+    transition: left ease .5s;
+  }
+  
+  button.on {
+    background-color: green;
+  }
+  
+  button.on .pin {
+    left: 33px; /* Adjusted to fit the smaller button */
+  }
+  

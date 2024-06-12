@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
   Link,
   useNavigate,
@@ -14,10 +14,17 @@ import { FaUser } from "react-icons/fa";
 import Notification from '../notification/Notification';
 import ProfileImg from '../displaypicture/ProfileImg';
 import CustomModal from '../modal/Modal';
+import Expenses from '../expenses/expenses';
+import expenseModalTheme from '../../constants/theme/expenseModalTheme';
+import Income from '../income/income';
+import incomeModalTheme from '../../constants/theme/incomeModalTheme';
 
-function TabButton({ id, label, icon, onClick, isActive }) {
+
+
+
+function TabButton({ id, label, icon, content, onClick, isActive }) {
   const buttonClasses = `
-    ${isActive ? 'bg-violet-80' : ''}
+    ${isActive ? 'bg-violet-80 text-light-100' : ''}
     px-4 py-2 rounded-md
     text-gray-700 hover:text-gray-900 font-medium transition duration-300 ease-in-out
   `;
@@ -29,8 +36,9 @@ function TabButton({ id, label, icon, onClick, isActive }) {
       onClick={onClick}
       
     >
-        {icon}
+      {icon}
       {label}
+      {content}
       
     </button>
   );
@@ -41,7 +49,22 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const [activeTabId, setActiveTabId] = useState(null); // Initially track active tab by ID
-  const [openModal, setOpenModal] = useState(false);
+  
+  const [openExpenseModal, setExpenseModal] = useState(false);
+  const [openIncomeModal, setIncomeModal] = useState(false);
+
+  const [isShown, setIsShown] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isShown) {
+      setIsVisible(true);
+    } else {
+      const timeout = setTimeout(() => setIsVisible(false), 300); // Match this duration with your transition duration
+      return () => clearTimeout(timeout);
+    }
+  }, [isShown]);
+
 
   const handleTabClick = (id, path) => {
 
@@ -50,7 +73,7 @@ export default function Navbar() {
       navigate(path);
     }
     else{
-      setOpenModal(true);
+      setIsShown(!isShown);
     }
    
 
@@ -68,7 +91,9 @@ export default function Navbar() {
   ];
 
   return (
-    <>    <nav className='flex flex-row justify-around items-center'>
+    <>    
+    
+    <nav className='flex flex-row justify-around items-center'>
         <ProfileImg/>
 
       {tabs.map((tab) => (
@@ -78,29 +103,53 @@ export default function Navbar() {
           label={tab.label}
           icon={tab.icon}
           path={tab.path}
+          content={tab.id === "tab3" ? 
+          <div
+          className={`flex-row gap-2 p-5 left-[46%] bg-transparent transition-all duration-300 ease-in-out delay-150 ${
+            isShown ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-5'
+          } ${isVisible ? 'flex absolute' : 'hidden'}`}
+        >
+            <button onClick={() => setExpenseModal(true)} className=' bg-green-80 p-3 text-xl rounded-2xl hover:text-light-60'>
+              Expenses
+            </button>
+            <button onClick={() => setIncomeModal(true)} className='bg-red-80 p-3 text-xl rounded-2xl hover:text-light-60'>
+              Income
+            </button>
+
+          </div> : ""}
           onClick={() => handleTabClick(tab.id, tab.path)}
           isActive={activeTabId === tab.id}
         />
       ))}
         <Notification/>
-        
     </nav>
+    
+    
+    <CustomModal
+    openModal={openExpenseModal}
+    setOpenModal={setExpenseModal}
+    theme={expenseModalTheme}
+    content={
+      <div className='text-center text-2xl'>
+      <span className=''>Expenses</span>
+      <Expenses/>
+      </div>
+    }
+    />
 
     <CustomModal
-    size={"md"}
-    content={
-      <div className="text-center">
-      <div className='flex flex-col gap-2'>
-        <span className='bg-green-60 hover:bg-green-80 rounded-lg p-7'>
-          Income
-        </span>
-        <span className='bg-red-60 hover:bg-red-80 rounded-lg p-7'>
-          Expense
-        </span>
-      </div>
-    </div>
-    }
-    openModal={openModal} setOpenModal={setOpenModal}/>
+      openModal={openIncomeModal}
+      setOpenModal={setIncomeModal}
+      theme={incomeModalTheme}
+
+      content={
+        <div className='text-center text-2xl'>
+        <span className=''>Income</span>
+        <Income/>
+        </div>
+      }
+      />
+
     </>
 
 
