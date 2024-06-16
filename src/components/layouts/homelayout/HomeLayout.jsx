@@ -12,10 +12,10 @@ import {
 
 export default function HomeLayout() {
   return (
-    <div className='py-8 px-3'>
+    <>
       <Navbar/>   
       <Outlet />
 
-    </div>
+    </>
   )
 }

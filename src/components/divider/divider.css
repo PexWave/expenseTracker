@@ -1,0 +1,7 @@
+.divider {
+    border: none;
+    height: 2px; /* Thickness of the line */
+    background: linear-gradient(to right, black 50%, rgba(255, 255, 255, 0) 0%);
+        background-size: 20px 100%; /* Adjust the first value to change the distance between dashes */
+    margin: 20px 0; 
+  }

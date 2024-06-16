@@ -3,10 +3,19 @@ import { Select } from "flowbite-react";
 import { Button } from "flowbite-react";
 import { ToggleSwitch } from "flowbite-react";
 import { FileInput, Label } from "flowbite-react";
+import { useDropzone } from 'react-dropzone';
+import clsx from 'clsx'; // Ensure clsx is imported
 
 //components
 export default function Expenses() {
     const [switch1, setSwitch1] = useState(false);
+    const { getInputProps, isDragAccept, isDragReject, getRootProps, open } = useDropzone();
+
+    const getBorderColor = () => {
+        if (isDragAccept) return 'accept';
+        if (isDragReject) return 'reject';
+        return 'default';
+      };
 
   return (
     <div
@@ -35,8 +44,15 @@ export default function Expenses() {
                     <div className="mb-2 block">
                             <Label htmlFor="file-upload" value="Add attachment" />
                     </div>
-                        <FileInput id="file-upload" />
-                </div>
+                    <div
+                        {...getRootProps({
+                            className: clsx('dropzone-container', `dropzone-border-${getBorderColor()}`),
+                        })}
+                        onClick={open} >
+                        <input {...getInputProps()} />
+                        <p className='text-black'>Drag 'n' drop your images here, or click to select them.</p>
+                        </div>
+                 </div>
 
                <Select id="wallet" required>
                    <option>Paypal</option>
